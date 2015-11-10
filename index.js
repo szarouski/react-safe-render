@@ -1,5 +1,4 @@
-
-module.exports = function safeRender (React, config) {
+function safeRender (React, config) {
   config = config || {};
   config.errorHandler = config.errorHandler || function () {};
 
@@ -57,8 +56,7 @@ function wrap(spec, original, config, method, returnFn) {
       }
 
       try {
-        config.errorHandler(report);
-        return returnFn ? returnFn() : null;
+          return returnFn ? returnFn() : config.errorHandler(report);
       } catch (err) {
         console.error('[Error Handler]', err.stack);
         return returnFn ? returnFn() : null;
@@ -74,3 +72,5 @@ function safeShouldComponentUpdate() {
 function safeGetInitial() {
   return {};
 }
+
+export default safeRender;
